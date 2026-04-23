@@ -31,13 +31,14 @@ export default function ProductTable({ data }: any) {
           <tr className="bg-blue-400 text-white">
             <th>ID</th>
             <th>Code</th>
-            <th></th>
+            <th>View</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {data.map((p: any) => (
-            <tr className="border-b border-gray-200 text-center" key={p.id}>
-              <td>{p.id}</td>
+            <tr className="border-b border-gray-200" key={p.id}>
+              <td className="text-center">{p.id}</td>
               <td>{p.code}</td>
               <td className="flex gap-2 justify-center">
                 <button
@@ -46,7 +47,10 @@ export default function ProductTable({ data }: any) {
                 >
                   QR
                 </button>
-                <button
+               
+              </td>
+              <td className="text-center">
+                 <button
                   onClick={() => {
                     setDeleteId(p.id);
                     setDeleteCode(p.code);
