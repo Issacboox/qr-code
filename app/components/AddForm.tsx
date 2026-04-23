@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function AddForm({ refresh }: any) {
   const [code, setCode] = useState("");
-  const router = useRouter(); // ✅ ต้องอยู่ตรงนี้
+  const router = useRouter();
 
   const formatCode = (value: string) => {
     return (
