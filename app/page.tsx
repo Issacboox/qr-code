@@ -16,7 +16,7 @@ async function getData() {
 export default async function Home() {
   const data = await getData();
 
-  console.log("DATA:", data); // 👈 ใส่อันนี้
+  console.log("DATA:", data);
 
   return (
     <div className="p-10 w-full">
