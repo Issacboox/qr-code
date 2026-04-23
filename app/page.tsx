@@ -19,7 +19,7 @@ export default async function Home() {
   console.log("DATA:", data); // 👈 ใส่อันนี้
 
   return (
-    <div className="p-10">
+    <div className="p-10 w-full">
       <AddForm />
       <ProductTable data={data} />
     </div>

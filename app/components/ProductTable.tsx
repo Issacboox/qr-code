@@ -8,18 +8,25 @@ import axios from "axios";
 export default function ProductTable({ data }: any) {
   const [qr, setQr] = useState<string | null>(null);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleteCode, setDeleteCode] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
     if (!deleteId) return;
 
-    await axios.delete(`/api/products/${deleteId}`);
-    setDeleteId(null);
-    window.location.reload();
+    try {
+      setLoading(true);
+      await axios.delete(`/api/products/${deleteId}`);
+      setDeleteId(null);
+      window.location.reload();
+    } finally {
+      setLoading(false);
+    }
   };
-  
+
   return (
     <>
-      <table className="w-full border">
+      <table className="w-full border rounded-2xl overflow-hidden">
         <thead>
           <tr className="bg-blue-400 text-white">
             <th>ID</th>
@@ -29,19 +36,22 @@ export default function ProductTable({ data }: any) {
         </thead>
         <tbody>
           {data.map((p: any) => (
-            <tr key={p.id}>
+            <tr className="border-b border-gray-200 text-center" key={p.id}>
               <td>{p.id}</td>
               <td>{p.code}</td>
-              <td className="flex gap-2">
+              <td className="flex gap-2 justify-center">
                 <button
                   onClick={() => setQr(p.code)}
-                  className="bg-green-500 text-white px-2"
+                  className="bg-green-500 text-white px-2 rounded-2xl shadow-md hover:bg-green-600 transition duration-300 ease-in-out"
                 >
                   QR
                 </button>
                 <button
-                  onClick={() => setDeleteId(p.id)}
-                  className="bg-red-500 text-white px-2"
+                  onClick={() => {
+                    setDeleteId(p.id);
+                    setDeleteCode(p.code);
+                  }}
+                  className="bg-red-500 text-white px-2 rounded-2xl shadow-md hover:bg-red-600 transition duration-300 ease-in-out"
                 >
                   ลบ
                 </button>
@@ -54,6 +64,8 @@ export default function ProductTable({ data }: any) {
       {qr && <QRModal code={qr} onClose={() => setQr(null)} />}
       {deleteId && (
         <ConfirmModal
+          code={deleteCode}
+          loading={loading}
           onConfirm={handleDelete}
           onClose={() => setDeleteId(null)}
         />
