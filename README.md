@@ -207,14 +207,6 @@ curl http://localhost:3000/api/products
 
 ---
 
-# ⚠️ Known Issues
-
-* ใช้ `window.location.reload()` (UX ยังไม่ optimal)
-* ยังไม่มี pagination
-* ยังไม่มี auth
-
----
-
 # 🔥 Future Improvements
 
 * ❌ remove reload → use state / SWR
